@@ -2339,9 +2339,118 @@ function escapeHtml(str) {
 }
 
 // ====================================================================
-// 15. SERVICE WORKER / PWA REGISTRATION
+// 15. SERVICE WORKER & PWA "DOWNLOAD AS APP" SYSTEM
 // ====================================================================
+let deferredInstallPrompt = null;
+
+function isAppRunningStandalone() {
+  return window.matchMedia('(display-mode: standalone)').matches ||
+         window.navigator.standalone === true ||
+         document.referrer.includes('android-app://');
+}
+
+function updatePWAUI() {
+  const isStandalone = isAppRunningStandalone();
+  const topBtn = document.getElementById('top-btn-install');
+  const banner = document.getElementById('pwa-install-banner');
+  const settingsBadge = document.getElementById('pwa-badge-status');
+  const settingsText = document.getElementById('pwa-status-text');
+  const settingsBtn = document.getElementById('btn-settings-install');
+
+  if (isStandalone) {
+    if (topBtn) {
+      topBtn.classList.add('installed');
+      topBtn.title = 'App Active (Running Standalone)';
+      topBtn.innerHTML = '<span class="install-btn-icon">✓</span><span class="btn-text-desktop">App Installed</span>';
+    }
+    if (banner) {
+      banner.classList.add('hidden');
+    }
+    if (settingsBadge) {
+      settingsBadge.textContent = 'Installed ✓';
+      settingsBadge.classList.add('installed');
+    }
+    if (settingsText) {
+      settingsText.textContent = 'Class 12 Command Center is currently running as an installed standalone app with full offline capabilities.';
+    }
+    if (settingsBtn) {
+      settingsBtn.innerHTML = '<span>✓ App Installed</span>';
+      settingsBtn.disabled = true;
+      settingsBtn.classList.add('btn-secondary');
+      settingsBtn.classList.remove('btn-primary');
+    }
+  } else {
+    if (settingsBadge) {
+      settingsBadge.textContent = deferredInstallPrompt ? 'Ready to Install' : 'Browser Mode';
+      settingsBadge.classList.remove('installed');
+    }
+  }
+}
+
+async function triggerPWAInstall() {
+  if (isAppRunningStandalone()) {
+    showToast('✅ App is already installed and running on your device!');
+    return;
+  }
+
+  if (deferredInstallPrompt) {
+    try {
+      deferredInstallPrompt.prompt();
+      const choice = await deferredInstallPrompt.userChoice;
+      if (choice.outcome === 'accepted') {
+        showToast('🎉 Installing Command Center app... Check your home screen or apps!');
+        deferredInstallPrompt = null;
+        document.getElementById('pwa-install-banner')?.classList.add('hidden');
+      } else {
+        showToast('App installation was cancelled. You can install anytime from the top bar or Settings.');
+      }
+    } catch (err) {
+      console.warn('Install prompt error:', err);
+      openInstallGuideModal();
+    }
+  } else {
+    // If native prompt is unavailable (iOS Safari, unsupported browser, or desktop manual install)
+    openInstallGuideModal();
+  }
+}
+
+function openInstallGuideModal() {
+  const modal = document.getElementById('modal-install-guide');
+  if (!modal) return;
+
+  // Auto-detect user platform to pre-select the most relevant guide tab
+  const ua = (navigator.userAgent || '').toLowerCase();
+  let targetTab = 'tab-chrome-android';
+
+  if (/iphone|ipad|ipod/.test(ua)) {
+    targetTab = 'tab-ios-safari';
+  } else if (!/android/.test(ua) && (/windows|macintosh|mac os x|linux|cros/.test(ua))) {
+    targetTab = 'tab-pc-edge';
+  }
+
+  switchInstallTab(targetTab);
+  modal.classList.remove('hidden');
+}
+
+function switchInstallTab(tabId) {
+  document.querySelectorAll('.install-tab-btn').forEach(btn => {
+    const isActive = btn.dataset.tab === tabId;
+    btn.classList.toggle('active', isActive);
+    btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+  });
+
+  document.querySelectorAll('.install-tab-content').forEach(content => {
+    content.classList.toggle('active', content.id === tabId);
+  });
+}
+
+function closeInstallGuideModal() {
+  const modal = document.getElementById('modal-install-guide');
+  if (modal) modal.classList.add('hidden');
+}
+
 function initPWA() {
+  // 1. Register Service Worker on HTTP/HTTPS
   if ('serviceWorker' in navigator && (window.location.protocol === 'http:' || window.location.protocol === 'https:')) {
     navigator.serviceWorker.register('./sw.js')
       .then((reg) => {
@@ -2351,6 +2460,115 @@ function initPWA() {
         console.log('Service Worker registration skipped or failed:', err);
       });
   }
+
+  // 2. Intercept beforeinstallprompt for custom install UX
+  window.addEventListener('beforeinstallprompt', (e) => {
+    // Prevent the default browser mini-infobar
+    e.preventDefault();
+    deferredInstallPrompt = e;
+    console.log('PWA beforeinstallprompt captured');
+    updatePWAUI();
+
+    // Show floating banner if not previously dismissed
+    const dismissedTimestamp = localStorage.getItem('pwa_banner_dismissed_at');
+    const oneWeekMs = 7 * 24 * 60 * 60 * 1000;
+    if (!dismissedTimestamp || (Date.now() - parseInt(dismissedTimestamp, 10)) > oneWeekMs) {
+      if (!isAppRunningStandalone()) {
+        const banner = document.getElementById('pwa-install-banner');
+        if (banner) {
+          setTimeout(() => {
+            if (!isAppRunningStandalone()) banner.classList.remove('hidden');
+          }, 1500);
+        }
+      }
+    }
+  });
+
+  // 3. Listen for appinstalled event
+  window.addEventListener('appinstalled', () => {
+    deferredInstallPrompt = null;
+    updatePWAUI();
+    showToast('🎉 Class 12 Command Center was successfully installed as an app!');
+    console.log('PWA was installed successfully');
+  });
+
+  // 4. Listen for display-mode change
+  try {
+    window.matchMedia('(display-mode: standalone)').addEventListener('change', () => {
+      updatePWAUI();
+    });
+  } catch (err) {
+    // Older browser fallback
+  }
+
+  // 5. Connect User Interaction Events
+  // Top Nav Install Button
+  document.getElementById('top-btn-install')?.addEventListener('click', () => {
+    triggerPWAInstall();
+  });
+
+  // Floating Banner Install Button
+  document.getElementById('btn-banner-install')?.addEventListener('click', () => {
+    triggerPWAInstall();
+  });
+
+  // Floating Banner Dismiss Button
+  document.getElementById('btn-banner-dismiss')?.addEventListener('click', () => {
+    document.getElementById('pwa-install-banner')?.classList.add('hidden');
+    localStorage.setItem('pwa_banner_dismissed_at', String(Date.now()));
+    showToast('Banner dismissed. You can download the app anytime from the top bar or Settings.');
+  });
+
+  // Settings View Install Button
+  document.getElementById('btn-settings-install')?.addEventListener('click', () => {
+    triggerPWAInstall();
+  });
+
+  // Settings View Show Guide Button
+  document.getElementById('btn-show-install-guide')?.addEventListener('click', () => {
+    openInstallGuideModal();
+  });
+
+  // Modal Guide Try Install Button
+  document.getElementById('btn-guide-try-install')?.addEventListener('click', () => {
+    closeInstallGuideModal();
+    triggerPWAInstall();
+  });
+
+  // Modal Guide Close Buttons
+  document.getElementById('modal-install-close')?.addEventListener('click', closeInstallGuideModal);
+  document.getElementById('btn-guide-close')?.addEventListener('click', closeInstallGuideModal);
+
+  // Modal Guide Backdrop Click
+  document.getElementById('modal-install-guide')?.addEventListener('click', (e) => {
+    if (e.target.id === 'modal-install-guide') {
+      closeInstallGuideModal();
+    }
+  });
+
+  // Modal Guide Tabs
+  document.querySelectorAll('.install-tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tabId = btn.dataset.tab;
+      if (tabId) switchInstallTab(tabId);
+    });
+  });
+
+  // 6. Check and display banner after short delay if not dismissed & not standalone
+  if (!isAppRunningStandalone()) {
+    const dismissedTimestamp = localStorage.getItem('pwa_banner_dismissed_at');
+    const oneWeekMs = 7 * 24 * 60 * 60 * 1000;
+    if (!dismissedTimestamp || (Date.now() - parseInt(dismissedTimestamp, 10)) > oneWeekMs) {
+      setTimeout(() => {
+        if (!isAppRunningStandalone()) {
+          document.getElementById('pwa-install-banner')?.classList.remove('hidden');
+        }
+      }, 2000);
+    }
+  }
+
+  // 7. Initial UI Sync
+  updatePWAUI();
 }
 
 // ====================================================================
