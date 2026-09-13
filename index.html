@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mission Board Exams — Class 12 Command Center</title>
+  <meta name="description" content="Premium Class 12 Board Exam Study Command Center for Physics, Chemistry, and Biology. Track syllabus, focus timer, revisions, PYQs, and streaks.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#4f46e5">
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  
+  <!-- Modern Typography: Inter Google Font with system fallbacks -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Application Container -->
+  <div id="app" class="app-root">
+    
+    <!-- Top Navigation (Desktop & Tablet) -->
+    <header class="top-nav-bar">
+      <div class="nav-inner">
+        <div class="brand-badge" id="brand-badge" role="button" tabindex="0" title="Go to Dashboard">
+          <div class="brand-logo-icon">12</div>
+          <div class="brand-text-block">
+            <span class="brand-name">Mission Board Exams</span>
+            <span class="brand-sub">Class 12 Command Center</span>
+          </div>
+        </div>
+
+        <nav class="desktop-nav-links" aria-label="Main Navigation">
+          <button class="nav-tab active" data-view="dashboard" id="nav-dashboard">
+            <span class="nav-tab-icon">🏠</span>
+            <span class="nav-tab-label">Dashboard</span>
+          </button>
+          <button class="nav-tab" data-view="syllabus" id="nav-syllabus">
+            <span class="nav-tab-icon">📚</span>
+            <span class="nav-tab-label">Syllabus</span>
+          </button>
+          <button class="nav-tab" data-view="revision" id="nav-revision">
+            <span class="nav-tab-icon">🔄</span>
+            <span class="nav-tab-label">Revision</span>
+          </button>
+          <button class="nav-tab" data-view="pyqs" id="nav-pyqs">
+            <span class="nav-tab-icon">📝</span>
+            <span class="nav-tab-label">PYQ Tracker</span>
+          </button>
+          <button class="nav-tab" data-view="analytics" id="nav-analytics">
+            <span class="nav-tab-icon">📊</span>
+            <span class="nav-tab-label">Analytics</span>
+          </button>
+          <button class="nav-tab" data-view="settings" id="nav-settings">
+            <span class="nav-tab-icon">⚙️</span>
+            <span class="nav-tab-label">Settings</span>
+          </button>
+        </nav>
+
+        <div class="top-nav-actions">
+          <button class="btn btn-primary btn-sm btn-focus-start" id="top-btn-focus" title="Start Focus Session">
+            <span>⏱️</span>
+            <span class="btn-text-desktop">Focus Session</span>
+          </button>
+          <button class="theme-toggle-btn" id="theme-toggle" title="Toggle Light/Dark Theme" aria-label="Toggle Theme">
+            <span id="theme-icon">🌙</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-content" id="main-content">
+      
+      <!-- ============================================== -->
+      <!-- VIEW: DASHBOARD (Home)                         -->
+      <!-- ============================================== -->
+      <section class="view-panel active" id="view-dashboard">
+        
+        <!-- Header Banner: Branding + Progress (Left) & Countdown (Right) -->
+        <div class="hero-card card">
+          <div class="hero-left">
+            <div class="hero-badge">🎓 CLASS 12 BOARDS 2027</div>
+            <h1 class="hero-title">Mission Board Exams</h1>
+            <p class="hero-motto">“Small progress every day becomes massive progress.”</p>
+            
+            <!-- Overall Syllabus Progress in Hero -->
+            <div class="overall-progress-block">
+              <div class="progress-info-row">
+                <div class="progress-title-col">
+                  <span class="stat-label">SYLLABUS COVERED</span>
+                  <span class="progress-percent" id="hero-progress-percent">0%</span>
+                </div>
+                <div class="stat-count-badge" id="hero-progress-fraction">0 / 37 Chapters</div>
+              </div>
+              <div class="progress-bar-track" role="progressbar" aria-label="Overall Syllabus Progress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar-fill" id="hero-progress-fill" style="width: 0%;"></div>
+              </div>
+              <div class="hero-stats-row">
+                <span class="hero-stat-pill"><strong id="hero-stat-completed">0</strong> Completed</span>
+                <span class="hero-stat-pill"><strong id="hero-stat-remaining">37</strong> Remaining</span>
+                <span class="hero-stat-pill"><strong>37</strong> Total Chapters</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-right">
+            <div class="countdown-card">
+              <div class="countdown-header">
+                <span class="countdown-target-label">TARGET EXAM</span>
+                <span class="countdown-date">Feb 1, 2027</span>
+              </div>
+              
+              <div class="countdown-timer-grid" id="countdown-grid">
+                <div class="timer-unit">
+                  <span class="timer-num" id="cd-days">00</span>
+                  <span class="timer-label">DAYS</span>
+                </div>
+                <div class="timer-sep">:</div>
+                <div class="timer-unit">
+                  <span class="timer-num" id="cd-hours">00</span>
+                  <span class="timer-label">HOURS</span>
+                </div>
+                <div class="timer-sep">:</div>
+                <div class="timer-unit">
+                  <span class="timer-num" id="cd-minutes">00</span>
+                  <span class="timer-label">MINUTES</span>
+                </div>
+                <div class="timer-sep">:</div>
+                <div class="timer-unit">
+                  <span class="timer-num" id="cd-seconds">00</span>
+                  <span class="timer-label">SECONDS</span>
+                </div>
+              </div>
+
+              <div class="exam-day-banner hidden" id="exam-day-banner">
+                🎓 EXAM DAY — GIVE IT YOUR BEST!
+              </div>
+
+              <div class="countdown-footer">
+                <span>⚡ Accurate to local device time</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Actions Row -->
+        <div class="quick-actions-bar">
+          <button class="quick-action-btn" id="qa-add-task">
+            <span class="qa-icon">➕</span>
+            <span class="qa-text">Add Task</span>
+          </button>
+          <button class="quick-action-btn" id="qa-focus">
+            <span class="qa-icon">⏱️</span>
+            <span class="qa-text">Focus Timer</span>
+          </button>
+          <button class="quick-action-btn" id="qa-revision">
+            <span class="qa-icon">🔄</span>
+            <span class="qa-text">Revision</span>
+          </button>
+          <button class="quick-action-btn" id="qa-pyqs">
+            <span class="qa-icon">📝</span>
+            <span class="qa-text">PYQs</span>
+          </button>
+          <button class="quick-action-btn" id="qa-analytics">
+            <span class="qa-icon">📊</span>
+            <span class="qa-text">Analytics</span>
+          </button>
+        </div>
+
+        <!-- Dashboard Grid: Mission & Target (Left) + Streak & Attention (Right) -->
+        <div class="dashboard-columns-grid">
+          
+          <!-- Left Column: Today's Mission & Daily Target -->
+          <div class="dash-col-main">
+            
+            <!-- Today's Mission Card -->
+            <div class="card mission-card">
+              <div class="card-header-split">
+                <div>
+                  <div class="card-subtitle">DAILY DISCIPLINE</div>
+                  <h2 class="card-title">Today's Mission</h2>
+                </div>
+                <div class="header-action-group">
+                  <span class="badge badge-indigo" id="mission-progress-badge">0 / 0 Completed (0%)</span>
+                  <button class="btn btn-secondary btn-sm" id="btn-add-task-modal">
+                    <span>➕ Add Task</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Mission Progress Bar -->
+              <div class="progress-bar-track mt-2 mb-3">
+                <div class="progress-bar-fill progress-fill-emerald" id="mission-progress-fill" style="width: 0%;"></div>
+              </div>
+
+              <!-- Task List -->
+              <div class="task-list-container" id="task-list-container">
+                <!-- Dynamically Rendered Tasks -->
+              </div>
+            </div>
+
+            <!-- Subject Progress Cards Row -->
+            <div class="subjects-overview-block">
+              <div class="section-title-row">
+                <h3 class="section-heading">Subject Progress</h3>
+                <button class="btn-text-link" id="link-view-all-syllabus">View Full Syllabus →</button>
+              </div>
+
+              <div class="subject-cards-grid">
+                <!-- Physics Card -->
+                <div class="subject-card card card-physics" id="card-subject-physics">
+                  <div class="sub-header">
+                    <div class="sub-tag tag-physics">⚡ PHYSICS</div>
+                    <span class="sub-count" id="sub-count-physics">0 / 14</span>
+                  </div>
+                  <div class="sub-title">14 Chapters</div>
+                  <div class="sub-percent-row">
+                    <span class="sub-percent" id="sub-percent-physics">0%</span>
+                    <span class="sub-status-label" id="sub-label-physics">Not Started</span>
+                  </div>
+                  <div class="progress-bar-track">
+                    <div class="progress-bar-fill progress-fill-blue" id="sub-fill-physics" style="width: 0%;"></div>
+                  </div>
+                </div>
+
+                <!-- Chemistry Card -->
+                <div class="subject-card card card-chemistry" id="card-subject-chemistry">
+                  <div class="sub-header">
+                    <div class="sub-tag tag-chemistry">🧪 CHEMISTRY</div>
+                    <span class="sub-count" id="sub-count-chemistry">0 / 10</span>
+                  </div>
+                  <div class="sub-title">10 Chapters</div>
+                  <div class="sub-percent-row">
+                    <span class="sub-percent" id="sub-percent-chemistry">0%</span>
+                    <span class="sub-status-label" id="sub-label-chemistry">Not Started</span>
+                  </div>
+                  <div class="progress-bar-track">
+                    <div class="progress-bar-fill progress-fill-purple" id="sub-fill-chemistry" style="width: 0%;"></div>
+                  </div>
+                </div>
+
+                <!-- Biology Card -->
+                <div class="subject-card card card-biology" id="card-subject-biology">
+                  <div class="sub-header">
+                    <div class="sub-tag tag-biology">🧬 BIOLOGY</div>
+                    <span class="sub-count" id="sub-count-biology">0 / 13</span>
+                  </div>
+                  <div class="sub-title">13 Chapters</div>
+                  <div class="sub-percent-row">
+                    <span class="sub-percent" id="sub-percent-biology">0%</span>
+                    <span class="sub-status-label" id="sub-label-biology">Not Started</span>
+                  </div>
+                  <div class="progress-bar-track">
+                    <div class="progress-bar-fill progress-fill-green" id="sub-fill-biology" style="width: 0%;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right Column: Study Target, Streak & Subject Attention -->
+          <div class="dash-col-side">
+            
+            <!-- Daily Study Target -->
+            <div class="card target-card">
+              <div class="card-header-split">
+                <div>
+                  <div class="card-subtitle">DEEP STUDY TARGET</div>
+                  <h3 class="card-title">Today's Target</h3>
+                </div>
+                <div class="target-select-wrap">
+                  <select id="select-daily-target" class="form-select-sm" aria-label="Daily Target Hours">
+                    <option value="1">1h</option>
+                    <option value="2">2h</option>
+                    <option value="3">3h</option>
+                    <option value="4" selected>4h</option>
+                    <option value="5">5h</option>
+                    <option value="6">6h</option>
+                    <option value="8">8h</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="target-stats-display">
+                <div class="target-highlight">
+                  <span class="target-completed-val" id="target-completed-time">0h 00m</span>
+                  <span class="target-slash">/</span>
+                  <span class="target-goal-val" id="target-goal-time">4h 00m</span>
+                </div>
+                <span class="badge badge-emerald" id="target-percent-badge">0%</span>
+              </div>
+
+              <div class="progress-bar-track mb-3">
+                <div class="progress-bar-fill progress-fill-emerald" id="target-progress-fill" style="width: 0%;"></div>
+              </div>
+
+              <div class="target-card-footer">
+                <span class="text-muted text-xs">Logged automatically from Focus Timer sessions</span>
+                <button class="btn btn-primary btn-sm" id="btn-start-focus-target">⏱️ Start Focus</button>
+              </div>
+            </div>
+
+            <!-- Study Streak Card -->
+            <div class="card streak-card">
+              <div class="streak-badge-row">
+                <span class="streak-flame">🔥</span>
+                <div>
+                  <div class="streak-title" id="streak-count-title">0 DAY STREAK</div>
+                  <div class="streak-subtitle">Consistency creates toppers</div>
+                </div>
+              </div>
+
+              <div class="streak-stats-grid">
+                <div class="streak-stat-box">
+                  <span class="streak-stat-label">CURRENT</span>
+                  <span class="streak-stat-num" id="streak-current-days">0 Days</span>
+                </div>
+                <div class="streak-stat-box">
+                  <span class="streak-stat-label">BEST</span>
+                  <span class="streak-stat-num" id="streak-best-days">0 Days</span>
+                </div>
+              </div>
+              <p class="streak-note text-xs text-muted">
+                Streak counts on completing tasks, chapters, or focus sessions.
+              </p>
+            </div>
+
+            <!-- Subject Attention Card -->
+            <div class="card attention-card" id="card-subject-attention">
+              <div class="attention-header">
+                <span class="badge badge-rose">NEEDS ATTENTION</span>
+              </div>
+              <h4 class="attention-subject-title" id="attention-subject-name">⚡ Physics</h4>
+              <p class="attention-text" id="attention-subject-desc">
+                Currently at 0% completion. Prioritize high-weightage chapters today.
+              </p>
+              <button class="btn btn-secondary btn-sm w-100" id="btn-focus-attention-sub">
+                Focus on this Subject
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- ============================================== -->
+      <!-- VIEW: SYLLABUS                                 -->
+      <!-- ============================================== -->
+      <section class="view-panel" id="view-syllabus">
+        
+        <div class="page-title-banner">
+          <div>
+            <h2 class="page-main-title">Class 12 Syllabus</h2>
+            <p class="page-sub-title">All 37 official chapters for Physics, Chemistry, and Biology.</p>
+          </div>
+          <div class="syllabus-summary-pills">
+            <span class="pill pill-blue" id="syl-pill-physics">Physics: 0/14</span>
+            <span class="pill pill-purple" id="syl-pill-chemistry">Chemistry: 0/10</span>
+            <span class="pill pill-green" id="syl-pill-biology">Biology: 0/13</span>
+          </div>
+        </div>
+
+        <!-- Filter & Search Controls -->
+        <div class="filter-toolbar card">
+          <div class="search-input-wrap">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="syl-search-input" class="search-input" placeholder="Search chapters by name or number...">
+          </div>
+
+          <div class="filter-btn-group" role="tablist" aria-label="Subject Filter">
+            <button class="filter-chip active" data-subject="all">All (37)</button>
+            <button class="filter-chip" data-subject="physics">Physics (14)</button>
+            <button class="filter-chip" data-subject="chemistry">Chemistry (10)</button>
+            <button class="filter-chip" data-subject="biology">Biology (13)</button>
+          </div>
+
+          <div class="status-filter-select-wrap">
+            <select id="syl-status-filter" class="form-select-sm" aria-label="Filter by Status">
+              <option value="all">All Statuses</option>
+              <option value="Not Started">Not Started</option>
+              <option value="Learning">Learning</option>
+              <option value="Completed">Completed</option>
+              <option value="Revised">Revised</option>
+              <option value="PYQ Done">PYQ Done</option>
+              <option value="Mastered">Mastered</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Syllabus Chapters Grid -->
+        <div class="chapters-grid" id="chapters-grid">
+          <!-- Dynamically populated 37 chapter cards -->
+        </div>
+
+      </section>
+
+      <!-- ============================================== -->
+      <!-- VIEW: REVISION TRACKER                         -->
+      <!-- ============================================== -->
+      <section class="view-panel" id="view-revision">
+        
+        <div class="page-title-banner">
+          <div>
+            <h2 class="page-main-title">Revision Tracker</h2>
+            <p class="page-sub-title">Spaced repetition across 3 revision cycles with scheduled due dates.</p>
+          </div>
+          <div class="revision-summary-badges">
+            <span class="badge badge-rose" id="rev-badge-due-today">🔴 0 Due Today</span>
+            <span class="badge badge-amber" id="rev-badge-due-tomorrow">🟡 0 Due Tomorrow</span>
+            <span class="badge badge-emerald" id="rev-badge-completed">✓ 0 Fully Revised</span>
+          </div>
+        </div>
+
+        <!-- Revision Toolbar -->
+        <div class="filter-toolbar card">
+          <div class="filter-btn-group" role="tablist" aria-label="Revision Filter">
+            <button class="filter-chip active" data-rev-filter="all">All Chapters</button>
+            <button class="filter-chip" data-rev-filter="due-today">🔴 Due Today</button>
+            <button class="filter-chip" data-rev-filter="due-tomorrow">🟡 Due Tomorrow</button>
+            <button class="filter-chip" data-rev-filter="upcoming">🟢 Upcoming</button>
+            <button class="filter-chip" data-rev-filter="completed">✓ 3/3 Done</button>
+          </div>
+
+          <div class="filter-btn-group" role="tablist" aria-label="Subject Filter for Revision">
+            <button class="filter-chip active" data-rev-sub="all">All Subjects</button>
+            <button class="filter-chip" data-rev-sub="physics">Physics</button>
+            <button class="filter-chip" data-rev-sub="chemistry">Chemistry</button>
+            <button class="filter-chip" data-rev-sub="biology">Biology</button>
+          </div>
+        </div>
+
+        <!-- Revision Chapter Cards -->
+        <div class="revision-grid" id="revision-grid">
+          <!-- Dynamically rendered revision chapter list -->
+        </div>
+
+      </section>
+
+      <!-- ============================================== -->
+      <!-- VIEW: PYQ TRACKER                              -->
+      <!-- ============================================== -->
+      <section class="view-panel" id="view-pyqs">
+        
+        <div class="page-title-banner">
+          <div>
+            <h2 class="page-main-title">PYQ Tracker</h2>
+            <p class="page-sub-title">Track Previous Year Questions solved across all 37 chapters.</p>
+          </div>
+          <div class="pyq-total-card">
+            <div class="pyq-total-count" id="pyq-total-stat">0 / 740</div>
+            <div class="pyq-total-sub" id="pyq-total-percent">0% Solved</div>
+          </div>
+        </div>
+
+        <!-- PYQ Toolbar -->
+        <div class="filter-toolbar card">
+          <div class="filter-btn-group" role="tablist" aria-label="PYQ Subject Filter">
+            <button class="filter-chip active" data-pyq-sub="all">All (37)</button>
+            <button class="filter-chip" data-pyq-sub="physics">Physics (14)</button>
+            <button class="filter-chip" data-pyq-sub="chemistry">Chemistry (10)</button>
+            <button class="filter-chip" data-pyq-sub="biology">Biology (13)</button>
+          </div>
+
+          <div class="search-input-wrap">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="pyq-search-input" class="search-input" placeholder="Search chapter PYQs...">
+          </div>
+        </div>
+
+        <!-- PYQ Chapters Grid -->
+        <div class="pyq-grid" id="pyq-grid">
+          <!-- Dynamically populated PYQ cards -->
+        </div>
+
+      </section>
+
+      <!-- ============================================== -->
+      <!-- VIEW: ANALYTICS & ACHIEVEMENTS                 -->
+      <!-- ============================================== -->
+      <section class="view-panel" id="view-analytics">
+        
+        <div class="page-title-banner">
+          <div>
+            <h2 class="page-main-title">Study Analytics</h2>
+            <p class="page-sub-title">Visual insights into your study time, subject mastery, and milestones.</p>
+          </div>
+        </div>
+
+        <!-- Analytics Overview Stats Cards -->
+        <div class="analytics-metrics-grid">
+          <div class="metric-card card">
+            <span class="metric-label">TODAY'S STUDY</span>
+            <span class="metric-val text-indigo" id="analytics-time-today">0h 00m</span>
+            <span class="metric-sub" id="analytics-target-comp">0% of daily target</span>
+          </div>
+          <div class="metric-card card">
+            <span class="metric-label">THIS WEEK</span>
+            <span class="metric-val text-blue" id="analytics-time-week">0h 00m</span>
+            <span class="metric-sub">Mon → Sun</span>
+          </div>
+          <div class="metric-card card">
+            <span class="metric-label">THIS MONTH</span>
+            <span class="metric-val text-purple" id="analytics-time-month">0h 00m</span>
+            <span class="metric-sub">Current calendar month</span>
+          </div>
+          <div class="metric-card card">
+            <span class="metric-label">TOTAL STUDY TIME</span>
+            <span class="metric-val text-emerald" id="analytics-time-total">0h 00m</span>
+            <span class="metric-sub">All logged focus sessions</span>
+          </div>
+        </div>
+
+        <!-- Secondary Academic Stats Row -->
+        <div class="analytics-submetrics-grid">
+          <div class="card submetric-box">
+            <span class="submetric-icon">📚</span>
+            <span class="submetric-num" id="stat-chapters-done">0 / 37</span>
+            <span class="submetric-title">Chapters Completed</span>
+          </div>
+          <div class="card submetric-box">
+            <span class="submetric-icon">🔄</span>
+            <span class="submetric-num" id="stat-revisions-done">0</span>
+            <span class="submetric-title">Revisions Done</span>
+          </div>
+          <div class="card submetric-box">
+            <span class="submetric-icon">📝</span>
+            <span class="submetric-num" id="stat-pyqs-done">0</span>
+            <span class="submetric-title">PYQs Solved</span>
+          </div>
+          <div class="card submetric-box">
+            <span class="submetric-icon">⏱️</span>
+            <span class="submetric-num" id="stat-sessions-done">0</span>
+            <span class="submetric-title">Focus Sessions</span>
+          </div>
+        </div>
+
+        <!-- Offline SVG Charts Grid -->
+        <div class="analytics-charts-grid">
+          
+          <!-- Chart 1: Weekly Study Time Bar Chart -->
+          <div class="card chart-card">
+            <div class="chart-header">
+              <div>
+                <h3 class="card-title">Weekly Study Time</h3>
+                <span class="card-subtitle">Hours focused per day (Monday → Sunday)</span>
+              </div>
+              <span class="badge badge-indigo" id="chart-week-total-badge">0h 00m</span>
+            </div>
+            <div class="chart-body" id="weekly-chart-container">
+              <!-- SVG Bar Chart dynamically injected -->
+            </div>
+          </div>
+
+          <!-- Chart 2: Subject Completion Comparison -->
+          <div class="card chart-card">
+            <div class="chart-header">
+              <div>
+                <h3 class="card-title">Subject Completion</h3>
+                <span class="card-subtitle">Percentage syllabus completed by subject</span>
+              </div>
+            </div>
+            <div class="chart-body" id="subject-chart-container">
+              <!-- SVG Subject Comparison Chart dynamically injected -->
+            </div>
+          </div>
+
+          <!-- Chart 3: Cumulative Progress Trend -->
+          <div class="card chart-card full-width-chart">
+            <div class="chart-header">
+              <div>
+                <h3 class="card-title">Syllabus Completion Trend</h3>
+                <span class="card-subtitle">Cumulative chapters mastered over time</span>
+              </div>
+            </div>
+            <div class="chart-body" id="trend-chart-container">
+              <!-- SVG Trend Chart dynamically injected -->
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Achievements Section -->
+        <div class="achievements-section mt-4">
+          <div class="section-title-row">
+            <div>
+              <h3 class="section-heading">Milestones & Achievements</h3>
+              <p class="text-muted text-xs">Earn badges as you study consistently and master chapters.</p>
+            </div>
+            <span class="badge badge-indigo" id="achievements-count-badge">0 / 10 Unlocked</span>
+          </div>
+
+          <div class="achievements-grid" id="achievements-grid">
+            <!-- 10 Achievements rendered dynamically -->
+          </div>
+        </div>
+
+        <!-- Recent Activity Feed -->
+        <div class="card mt-4">
+          <div class="card-header-split">
+            <div>
+              <h3 class="card-title">Recent Activity</h3>
+              <span class="card-subtitle">Latest study sessions, tasks, and revisions</span>
+            </div>
+            <button class="btn btn-secondary btn-sm" id="btn-clear-activity" title="Clear Activity History">Clear</button>
+          </div>
+          <div class="activity-feed-list" id="activity-feed-list">
+            <!-- Dynamically populated activity items -->
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ============================================== -->
+      <!-- VIEW: SETTINGS & DATA MANAGEMENT               -->
+      <!-- ============================================== -->
+      <section class="view-panel" id="view-settings">
+        
+        <div class="page-title-banner">
+          <div>
+            <h2 class="page-main-title">Settings & Data Safety</h2>
+            <p class="page-sub-title">Configure study targets, theme preferences, and manage your local data.</p>
+          </div>
+        </div>
+
+        <div class="settings-grid">
+          
+          <!-- Study Preferences -->
+          <div class="card settings-card">
+            <h3 class="card-title mb-1">Study Preferences</h3>
+            <p class="card-subtitle mb-3">Adjust your daily study schedule target</p>
+
+            <div class="form-group mb-3">
+              <label for="settings-daily-target" class="form-label">Daily Focus Target (Hours)</label>
+              <select id="settings-daily-target" class="form-select">
+                <option value="1">1 Hour</option>
+                <option value="2">2 Hours</option>
+                <option value="3">3 Hours</option>
+                <option value="4">4 Hours (Recommended)</option>
+                <option value="5">5 Hours</option>
+                <option value="6">6 Hours</option>
+                <option value="8">8 Hours</option>
+              </select>
+              <span class="form-help">Sets the daily target progress ring on your dashboard.</span>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Theme Appearance</label>
+              <div class="theme-choice-row">
+                <button class="theme-choice-btn" id="theme-set-light">
+                  <span>☀️ Light Mode</span>
+                </button>
+                <button class="theme-choice-btn" id="theme-set-dark">
+                  <span>🌙 Dark Mode</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Data Backup & Restore -->
+          <div class="card settings-card">
+            <h3 class="card-title mb-1">Data Backup & Restore</h3>
+            <p class="card-subtitle mb-3">Your data is stored safely in your browser localStorage</p>
+
+            <div class="backup-action-block mb-3">
+              <div class="backup-desc">
+                <strong>Export Data Backup</strong>
+                <p class="text-xs text-muted">Download complete JSON snapshot of all chapters, tasks, sessions, and streaks.</p>
+              </div>
+              <button class="btn btn-secondary" id="btn-export-backup">
+                <span>📥 Export Backup (JSON)</span>
+              </button>
+            </div>
+
+            <div class="backup-action-block">
+              <div class="backup-desc">
+                <strong>Import Data Backup</strong>
+                <p class="text-xs text-muted">Restore a previously saved <code>class12-tracker-backup.json</code> file.</p>
+              </div>
+              <label class="btn btn-secondary btn-file-label">
+                <span>📤 Choose File</span>
+                <input type="file" id="file-import-backup" accept=".json" class="visually-hidden">
+              </label>
+            </div>
+          </div>
+
+          <!-- Danger Zone: Reset Progress -->
+          <div class="card settings-card card-danger">
+            <h3 class="card-title text-danger mb-1">Danger Zone</h3>
+            <p class="card-subtitle mb-3">Permanent actions regarding your study data</p>
+
+            <div class="danger-row">
+              <div>
+                <strong>Reset All Progress</strong>
+                <p class="text-xs text-muted">Erase all completed chapters, focus sessions, tasks, and streak history.</p>
+              </div>
+              <button class="btn btn-danger" id="btn-open-reset-modal">
+                Reset Progress
+              </button>
+            </div>
+          </div>
+
+          <!-- About & Exam Info -->
+          <div class="card settings-card">
+            <h3 class="card-title mb-1">Target Exam Details</h3>
+            <p class="card-subtitle mb-3">Official Class 12 Board Examination Details</p>
+
+            <div class="exam-info-table">
+              <div class="info-row">
+                <span class="info-key">Target Exam:</span>
+                <span class="info-val">Class 12 CBSE / State Board</span>
+              </div>
+              <div class="info-row">
+                <span class="info-key">Target Date:</span>
+                <span class="info-val">February 1, 2027 (00:00:00 local time)</span>
+              </div>
+              <div class="info-row">
+                <span class="info-key">Total Syllabus:</span>
+                <span class="info-val">37 Chapters (14 Physics, 10 Chemistry, 13 Biology)</span>
+              </div>
+              <div class="info-row">
+                <span class="info-key">Storage Engine:</span>
+                <span class="info-val">Browser LocalStorage (Zero Server Dependency)</span>
+              </div>
+              <div class="info-row">
+                <span class="info-key">Offline Support:</span>
+                <span class="info-val">PWA Service Worker Enabled</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- Mobile Bottom Navigation Bar -->
+    <nav class="mobile-bottom-nav" aria-label="Mobile Navigation">
+      <button class="mobile-nav-btn active" data-view="dashboard" id="mob-nav-dashboard">
+        <span class="mob-icon">🏠</span>
+        <span class="mob-label">Dashboard</span>
+      </button>
+      <button class="mobile-nav-btn" data-view="syllabus" id="mob-nav-syllabus">
+        <span class="mob-icon">📚</span>
+        <span class="mob-label">Syllabus</span>
+      </button>
+      <button class="mobile-nav-btn" data-view="revision" id="mob-nav-revision">
+        <span class="mob-icon">🔄</span>
+        <span class="mob-label">Revision</span>
+      </button>
+      <button class="mobile-nav-btn" data-view="pyqs" id="mob-nav-pyqs">
+        <span class="mob-icon">📝</span>
+        <span class="mob-label">PYQs</span>
+      </button>
+      <button class="mobile-nav-btn" data-view="analytics" id="mob-nav-analytics">
+        <span class="mob-icon">📊</span>
+        <span class="mob-label">Analytics</span>
+      </button>
+      <button class="mobile-nav-btn" data-view="settings" id="mob-nav-settings">
+        <span class="mob-icon">⚙️</span>
+        <span class="mob-label">Settings</span>
+      </button>
+    </nav>
+
+  </div>
+
+  <!-- ============================================== -->
+  <!-- MODAL: ADD / EDIT TASK                         -->
+  <!-- ============================================== -->
+  <div class="modal-backdrop hidden" id="modal-task" role="dialog" aria-modal="true" aria-labelledby="modal-task-title">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modal-task-title">Add Today's Task</h3>
+        <button class="modal-close-btn" id="modal-task-close" aria-label="Close modal">&times;</button>
+      </div>
+      <form id="form-task" class="modal-form">
+        <input type="hidden" id="task-id-input">
+        
+        <div class="form-group mb-3">
+          <label for="task-title-input" class="form-label">Task Title / Chapter Activity</label>
+          <input type="text" id="task-title-input" class="form-input" placeholder="e.g., Ray Optics derivation practice" required maxlength="120">
+        </div>
+
+        <div class="form-row mb-3">
+          <div class="form-group form-col">
+            <label for="task-subject-select" class="form-label">Subject</label>
+            <select id="task-subject-select" class="form-select" required>
+              <option value="physics">⚡ Physics</option>
+              <option value="chemistry">🧪 Chemistry</option>
+              <option value="biology">🧬 Biology</option>
+              <option value="general">📚 General Study</option>
+            </select>
+          </div>
+
+          <div class="form-group form-col">
+            <label for="task-priority-select" class="form-label">Priority</label>
+            <select id="task-priority-select" class="form-select" required>
+              <option value="HIGH">HIGH (Urgent)</option>
+              <option value="MED" selected>MEDIUM</option>
+              <option value="LOW">LOW</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group mb-4">
+          <label for="task-duration-select" class="form-label">Estimated Duration</label>
+          <select id="task-duration-select" class="form-select" required>
+            <option value="25">25 min (Sprint)</option>
+            <option value="45">45 min</option>
+            <option value="60" selected>60 min (1 Hour)</option>
+            <option value="90">90 min (1.5 Hours)</option>
+            <option value="120">120 min (2 Hours)</option>
+          </select>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" id="btn-cancel-task">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="btn-save-task">Save Task</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- MODAL: FOCUS SESSION SETUP                     -->
+  <!-- ============================================== -->
+  <div class="modal-backdrop hidden" id="modal-focus-setup" role="dialog" aria-modal="true" aria-labelledby="modal-focus-title">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modal-focus-title">Start Deep Focus Session</h3>
+        <button class="modal-close-btn" id="modal-focus-close" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        
+        <div class="form-group mb-3">
+          <label for="focus-subject-select" class="form-label">Subject</label>
+          <select id="focus-subject-select" class="form-select">
+            <option value="physics">⚡ Physics</option>
+            <option value="chemistry">🧪 Chemistry</option>
+            <option value="biology">🧬 Biology</option>
+            <option value="general">📚 General Revision</option>
+          </select>
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="focus-chapter-select" class="form-label">Chapter (Optional)</label>
+          <select id="focus-chapter-select" class="form-select">
+            <option value="">-- Select Chapter or Study General --</option>
+            <!-- Dynamically populated chapters based on chosen subject -->
+          </select>
+        </div>
+
+        <div class="form-group mb-3">
+          <label class="form-label">Preset Duration</label>
+          <div class="duration-chips-grid">
+            <button type="button" class="duration-chip" data-mins="25">25m</button>
+            <button type="button" class="duration-chip" data-mins="45">45m</button>
+            <button type="button" class="duration-chip active" data-mins="60">60m</button>
+            <button type="button" class="duration-chip" data-mins="90">90m</button>
+            <button type="button" class="duration-chip" data-mins="120">120m</button>
+          </div>
+        </div>
+
+        <div class="form-group mb-4">
+          <label class="form-label">Or Custom Duration (Hours : Minutes)</label>
+          <div class="custom-time-inputs">
+            <input type="number" id="focus-custom-hours" class="form-input text-center" min="0" max="12" value="1" placeholder="HH">
+            <span class="custom-time-sep">:</span>
+            <input type="number" id="focus-custom-mins" class="form-input text-center" min="0" max="59" value="00" placeholder="MM">
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" id="btn-cancel-focus-setup">Cancel</button>
+          <button type="button" class="btn btn-primary" id="btn-begin-focus">BEGIN FOCUS ⏱️</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- FULLSCREEN DISTRACTION-FREE FOCUS MODE         -->
+  <!-- ============================================== -->
+  <div class="fullscreen-focus-overlay hidden" id="fullscreen-focus" role="dialog" aria-modal="true" aria-label="Distraction Free Focus Mode">
+    
+    <div class="focus-top-bar">
+      <span class="focus-brand-tag">MISSION BOARD EXAMS • DEEP STUDY</span>
+      <button class="focus-icon-btn" id="btn-toggle-native-fs" title="Toggle Fullscreen">⛶</button>
+    </div>
+
+    <div class="focus-timer-content">
+      <!-- Huge White Minimalist Timer -->
+      <div class="focus-giant-digits" id="focus-digits">01:00:00</div>
+      
+      <!-- Subject & Chapter Meta -->
+      <div class="focus-subject-meta" id="focus-meta-display">
+        Physics • Ray Optics
+      </div>
+
+      <div class="focus-status-indicator" id="focus-status-text">
+        DEEP FOCUS IN PROGRESS
+      </div>
+    </div>
+
+    <!-- Minimalist Controls Bar -->
+    <div class="focus-controls-bar">
+      <button class="btn focus-btn-secondary" id="btn-pause-resume-focus">Pause</button>
+      <button class="btn focus-btn-primary" id="btn-complete-early-focus">Complete & Save</button>
+      <button class="btn focus-btn-danger" id="btn-abort-focus">Exit (ESC)</button>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- MODAL: FOCUS SESSION COMPLETED CELEBRATION     -->
+  <!-- ============================================== -->
+  <div class="modal-backdrop hidden" id="modal-focus-complete" role="dialog" aria-modal="true">
+    <div class="modal-card text-center celebration-card">
+      <div class="celebration-icon">🎉</div>
+      <h2 class="modal-title">SESSION COMPLETE!</h2>
+      <p class="celebration-subtitle">Outstanding discipline. Your focused time has been logged.</p>
+      
+      <div class="session-summary-box">
+        <div class="session-stat-item">
+          <span class="session-stat-lbl">DURATION</span>
+          <span class="session-stat-val" id="completed-session-duration">1h 00m</span>
+        </div>
+        <div class="session-stat-item">
+          <span class="session-stat-lbl">SUBJECT</span>
+          <span class="session-stat-val" id="completed-session-subject">Physics</span>
+        </div>
+        <div class="session-stat-item">
+          <span class="session-stat-lbl">CHAPTER</span>
+          <span class="session-stat-val" id="completed-session-chapter">Ray Optics</span>
+        </div>
+      </div>
+
+      <button class="btn btn-primary w-100" id="btn-close-focus-celebration">Continue To Command Center</button>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- MODAL: CHAPTER DETAIL & EDIT                   -->
+  <!-- ============================================== -->
+  <div class="modal-backdrop hidden" id="modal-chapter-detail" role="dialog" aria-modal="true" aria-labelledby="chapter-modal-title">
+    <div class="modal-card modal-lg">
+      <div class="modal-header">
+        <div>
+          <span class="sub-tag" id="chapter-modal-sub-tag">PHYSICS</span>
+          <h3 class="modal-title mt-1" id="chapter-modal-title">Chapter Details</h3>
+        </div>
+        <button class="modal-close-btn" id="modal-chapter-close" aria-label="Close modal">&times;</button>
+      </div>
+
+      <div class="modal-body chapter-detail-body">
+        <input type="hidden" id="chapter-detail-id">
+
+        <!-- Status & Quick Complete Row -->
+        <div class="chapter-modal-section">
+          <div class="chapter-status-row">
+            <div class="form-group flex-1">
+              <label for="chapter-status-select" class="form-label">Study Status</label>
+              <select id="chapter-status-select" class="form-select">
+                <option value="Not Started">Not Started</option>
+                <option value="Learning">Learning</option>
+                <option value="Completed">Completed</option>
+                <option value="Revised">Revised</option>
+                <option value="PYQ Done">PYQ Done</option>
+                <option value="Mastered">Mastered</option>
+              </select>
+            </div>
+            
+            <div class="quick-complete-toggle-wrap">
+              <label class="form-label">Quick Toggle</label>
+              <button type="button" class="btn btn-secondary btn-toggle-completed" id="btn-toggle-chapter-completed">
+                <span id="btn-toggle-completed-icon">☐</span>
+                <span id="btn-toggle-completed-text">Mark Completed</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Revision Tracking Block -->
+        <div class="chapter-modal-section">
+          <h4 class="modal-section-heading">🔄 Revision Cycles</h4>
+          <div class="revision-checkbox-group">
+            <label class="rev-checkbox-label">
+              <input type="checkbox" id="chk-rev-1" class="rev-chk">
+              <span>Revision 1</span>
+            </label>
+            <label class="rev-checkbox-label">
+              <input type="checkbox" id="chk-rev-2" class="rev-chk">
+              <span>Revision 2</span>
+            </label>
+            <label class="rev-checkbox-label">
+              <input type="checkbox" id="chk-rev-3" class="rev-chk">
+              <span>Revision 3</span>
+            </label>
+          </div>
+
+          <div class="form-group mt-2">
+            <label for="input-rev-due-date" class="form-label">Next Revision Due Date</label>
+            <input type="date" id="input-rev-due-date" class="form-input form-input-sm">
+            <span class="text-xs text-muted">Leave empty if no scheduled revision date.</span>
+          </div>
+        </div>
+
+        <!-- PYQs Tracking Block -->
+        <div class="chapter-modal-section">
+          <h4 class="modal-section-heading">📝 Previous Year Questions (PYQs)</h4>
+          <div class="pyq-controls-row">
+            <div class="pyq-stepper">
+              <button type="button" class="pyq-step-btn" id="btn-pyq-decrement" title="Subtract 1">−</button>
+              <div class="pyq-numbers">
+                <span class="pyq-solved-num" id="modal-pyq-solved">0</span>
+                <span class="pyq-slash">/</span>
+                <span class="pyq-total-num" id="modal-pyq-total">20</span>
+              </div>
+              <button type="button" class="pyq-step-btn" id="btn-pyq-increment" title="Add 1">+</button>
+            </div>
+
+            <div class="pyq-edit-target">
+              <label for="input-pyq-total" class="text-xs text-muted">Total PYQs:</label>
+              <input type="number" id="input-pyq-total" class="form-input form-input-sm w-80" min="1" max="200" value="20">
+            </div>
+          </div>
+
+          <div class="progress-bar-track mt-2">
+            <div class="progress-bar-fill progress-fill-indigo" id="modal-pyq-fill" style="width: 0%;"></div>
+          </div>
+        </div>
+
+        <!-- Chapter Study Notes -->
+        <div class="chapter-modal-section">
+          <label for="chapter-notes-textarea" class="modal-section-heading">📌 Key Formulas / Weak Areas Notes</label>
+          <textarea id="chapter-notes-textarea" class="form-textarea" rows="3" placeholder="Add personal notes, difficult concepts, or formula reminders for this chapter..."></textarea>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" id="btn-close-chapter-detail">Close</button>
+          <button type="button" class="btn btn-primary" id="btn-save-chapter-detail">Save Chapter Info</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- MODAL: RESET CONFIRMATION SAFEGUARD            -->
+  <!-- ============================================== -->
+  <div class="modal-backdrop hidden" id="modal-reset-confirm" role="dialog" aria-modal="true">
+    <div class="modal-card card-danger">
+      <div class="modal-header">
+        <h3 class="modal-title text-danger">⚠️ Reset All Progress?</h3>
+        <button class="modal-close-btn" id="modal-reset-close" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="mb-3">
+          This will permanently delete all your completed chapters, tasks, revisions, PYQs, focus sessions, and streaks.
+        </p>
+        <p class="mb-3 text-danger">
+          <strong>This action cannot be undone.</strong> Consider downloading an Export Backup first.
+        </p>
+        <div class="form-group mb-4">
+          <label for="reset-confirm-text" class="form-label">Type <strong>RESET</strong> below to confirm:</label>
+          <input type="text" id="reset-confirm-text" class="form-input" placeholder="RESET" autocomplete="off">
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" id="btn-cancel-reset">Cancel</button>
+          <button type="button" class="btn btn-danger" id="btn-execute-reset" disabled>Reset Everything</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- Vanilla JavaScript Application Logic -->
+  <script src="app.js"></script>
+</body>
+</html>
