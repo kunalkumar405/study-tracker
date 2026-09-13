@@ -7,6 +7,11 @@
   <meta name="description" content="Premium Class 12 Board Exam Study Command Center for Physics, Chemistry, and Biology. Track syllabus, focus timer, revisions, PYQs, and streaks.">
   <link rel="manifest" href="manifest.webmanifest">
   <meta name="theme-color" content="#4f46e5">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Board Tracker">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Board Tracker">
   <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
   <link rel="apple-touch-icon" href="icons/icon-192.png">
   
@@ -60,6 +65,10 @@
         </nav>
 
         <div class="top-nav-actions">
+          <button class="btn btn-download-app btn-sm" id="top-btn-install" title="Download & Install as App" aria-label="Download App">
+            <span class="install-btn-icon">📲</span>
+            <span class="btn-text-desktop">Download App</span>
+          </button>
           <button class="btn btn-primary btn-sm btn-focus-start" id="top-btn-focus" title="Start Focus Session">
             <span>⏱️</span>
             <span class="btn-text-desktop">Focus Session</span>
@@ -630,6 +639,39 @@
 
         <div class="settings-grid">
           
+          <!-- PWA Download as App Card -->
+          <div class="card settings-card pwa-highlight-card" id="settings-pwa-card">
+            <div class="settings-card-header-flex">
+              <div>
+                <h3 class="card-title mb-1">📲 Download as App</h3>
+                <p class="card-subtitle mb-2">Install on your Phone, Tablet, or PC for a distraction-free standalone app</p>
+              </div>
+              <span class="pwa-status-badge" id="pwa-badge-status">Browser Mode</span>
+            </div>
+
+            <div class="pwa-settings-content">
+              <p class="text-sm mb-3" id="pwa-status-text">
+                Enjoy 1-tap launch from your home screen or desktop, full offline study support, and zero browser tab clutter.
+              </p>
+
+              <div class="pwa-settings-action-row">
+                <button type="button" class="btn btn-primary" id="btn-settings-install">
+                  <span>📲 Download / Install App</span>
+                </button>
+                <button type="button" class="btn btn-secondary" id="btn-show-install-guide">
+                  <span>📖 Installation Guide</span>
+                </button>
+              </div>
+
+              <div class="pwa-feature-chips mt-3">
+                <span class="feature-chip">⚡ Instant 1-Tap Launch</span>
+                <span class="feature-chip">📴 100% Offline Capable</span>
+                <span class="feature-chip">🔒 Zero Server / 100% Private</span>
+                <span class="feature-chip">📱 Home Screen Shortcut</span>
+              </div>
+            </div>
+          </div>
+
           <!-- Study Preferences -->
           <div class="card settings-card">
             <h3 class="card-title mb-1">Study Preferences</h3>
@@ -1073,6 +1115,152 @@
         <div class="modal-actions">
           <button type="button" class="btn btn-secondary" id="btn-cancel-reset">Cancel</button>
           <button type="button" class="btn btn-danger" id="btn-execute-reset" disabled>Reset Everything</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- FLOATING PWA INSTALL BANNER                    -->
+  <!-- ============================================== -->
+  <aside id="pwa-install-banner" class="pwa-install-banner hidden" role="region" aria-label="Download App Banner">
+    <div class="pwa-banner-inner">
+      <div class="pwa-banner-left">
+        <img src="icons/icon-192.png" alt="Class 12 Command Center App Icon" class="pwa-banner-icon" width="48" height="48">
+        <div class="pwa-banner-text">
+          <strong class="pwa-banner-title">Download Command Center App</strong>
+          <span class="pwa-banner-sub">Install for instant 1-tap launch and full offline study tracking.</span>
+        </div>
+      </div>
+      <div class="pwa-banner-actions">
+        <button type="button" class="btn btn-primary btn-sm" id="btn-banner-install">
+          <span>📲 Download App</span>
+        </button>
+        <button type="button" class="btn btn-ghost btn-sm" id="btn-banner-dismiss" aria-label="Dismiss download banner">Later</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ============================================== -->
+  <!-- MODAL: PWA INSTALLATION GUIDE                  -->
+  <!-- ============================================== -->
+  <div class="modal-backdrop hidden" id="modal-install-guide" role="dialog" aria-modal="true" aria-labelledby="modal-install-title">
+    <div class="modal-card modal-card-install">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modal-install-title">📲 Download & Install App</h3>
+        <button class="modal-close-btn" id="modal-install-close" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="install-guide-hero">
+          <img src="icons/icon-192.png" alt="App Logo" class="install-guide-logo" width="60" height="60">
+          <div>
+            <h4 class="install-guide-name">Class 12 Board Exam Command Center</h4>
+            <p class="text-xs text-muted">Zero download size overhead &bull; Works 100% offline &bull; No app store required</p>
+          </div>
+        </div>
+
+        <!-- Platform Instructions Tabs -->
+        <div class="install-tabs" role="tablist">
+          <button type="button" class="install-tab-btn active" data-tab="tab-chrome-android" role="tab" aria-selected="true">🤖 Android / Chrome</button>
+          <button type="button" class="install-tab-btn" data-tab="tab-ios-safari" role="tab" aria-selected="false">🍎 iPhone / Safari</button>
+          <button type="button" class="install-tab-btn" data-tab="tab-pc-edge" role="tab" aria-selected="false">💻 PC / Mac / Edge</button>
+        </div>
+
+        <!-- Tab 1: Android / Chrome -->
+        <div class="install-tab-content active" id="tab-chrome-android" role="tabpanel">
+          <ol class="install-steps-list">
+            <li class="install-step-item">
+              <span class="step-badge">1</span>
+              <div class="step-info">
+                <strong>Tap "Download / Install App"</strong>
+                <p class="text-xs text-muted">Tap the install button below or on the top navigation bar.</p>
+              </div>
+            </li>
+            <li class="install-step-item">
+              <span class="step-badge">2</span>
+              <div class="step-info">
+                <strong>Confirm "Install" Prompt</strong>
+                <p class="text-xs text-muted">When your browser asks <em>"Install Class 12 Command Center?"</em>, tap <strong>Install</strong>.</p>
+              </div>
+            </li>
+            <li class="install-step-item">
+              <span class="step-badge">3</span>
+              <div class="step-info">
+                <strong>Open from Your Home Screen</strong>
+                <p class="text-xs text-muted">The app icon is added to your mobile home screen with full screen & offline support!</p>
+              </div>
+            </li>
+          </ol>
+          <div class="install-note">
+            <span>💡 <strong>Manual method:</strong> Tap Chrome's menu <strong>(⋮)</strong> in the top right &rarr; select <strong>"Install app"</strong> or <strong>"Add to Home screen"</strong>.</span>
+          </div>
+        </div>
+
+        <!-- Tab 2: iPhone / iPad Safari -->
+        <div class="install-tab-content" id="tab-ios-safari" role="tabpanel">
+          <ol class="install-steps-list">
+            <li class="install-step-item">
+              <span class="step-badge">1</span>
+              <div class="step-info">
+                <strong>Tap the Share Button</strong>
+                <p class="text-xs text-muted">In Safari, tap the <strong>Share</strong> button (box with an upward arrow 📤) at the bottom toolbar.</p>
+              </div>
+            </li>
+            <li class="install-step-item">
+              <span class="step-badge">2</span>
+              <div class="step-info">
+                <strong>Select "Add to Home Screen"</strong>
+                <p class="text-xs text-muted">Scroll down in the action menu and tap <strong>"Add to Home Screen"</strong> (➕).</p>
+              </div>
+            </li>
+            <li class="install-step-item">
+              <span class="step-badge">3</span>
+              <div class="step-info">
+                <strong>Tap "Add"</strong>
+                <p class="text-xs text-muted">Tap <strong>Add</strong> in the top right corner. The app will appear on your home screen!</p>
+              </div>
+            </li>
+          </ol>
+          <div class="install-note">
+            <span>💡 <em>Note:</em> Apple iOS requires using Safari to add web apps to your home screen.</span>
+          </div>
+        </div>
+
+        <!-- Tab 3: PC / Mac / Chrome / Edge -->
+        <div class="install-tab-content" id="tab-pc-edge" role="tabpanel">
+          <ol class="install-steps-list">
+            <li class="install-step-item">
+              <span class="step-badge">1</span>
+              <div class="step-info">
+                <strong>Look for the Install Icon in URL Bar</strong>
+                <p class="text-xs text-muted">Look at the right side of the address bar for the <strong>Install</strong> icon (🖥️ or ⊞).</p>
+              </div>
+            </li>
+            <li class="install-step-item">
+              <span class="step-badge">2</span>
+              <div class="step-info">
+                <strong>Click "Install"</strong>
+                <p class="text-xs text-muted">Click <strong>Install</strong> to install on Windows/macOS. It opens in its own clean window.</p>
+              </div>
+            </li>
+            <li class="install-step-item">
+              <span class="step-badge">3</span>
+              <div class="step-info">
+                <strong>Pin to Taskbar or Dock</strong>
+                <p class="text-xs text-muted">Pin to your Windows Taskbar or Mac Dock for instant access with no browser tabs!</p>
+              </div>
+            </li>
+          </ol>
+          <div class="install-note">
+            <span>💡 <strong>Shortcut:</strong> You can also click Chrome/Edge menu <strong>(⋮)</strong> &rarr; <strong>"Save and share"</strong> &rarr; <strong>"Install Class 12 Command Center"</strong>.</span>
+          </div>
+        </div>
+
+        <div class="modal-actions mt-3">
+          <button type="button" class="btn btn-primary" id="btn-guide-try-install">
+            <span>📲 Try Install Prompt</span>
+          </button>
+          <button type="button" class="btn btn-secondary" id="btn-guide-close">Got It</button>
         </div>
       </div>
     </div>
